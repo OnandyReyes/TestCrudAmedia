@@ -1,7 +1,36 @@
-﻿
+﻿@model TestCrudAmedia.ViewModels.GeneroPeliculaViewModels
 @{
     ViewData["Title"] = "Nuevo";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<div class="row mt-5">
+    <div class="col-sm-4 offset-sm-4">
+        <form asp-controller="GeneroPelicula" asp-action="Nuevo" method="post">
+            <legend>Asignar Genero a @Model.pelicula.TxtDesc</legend>
+            <div class="mb-3">
+                <label for="InputGenero" class="form-label">Seleccionar Genero</label>
+                <select class="form-control" asp-for="cod_genero">
+                    @{
+                        foreach(var item in Model.listGeneros){
+                            <option value="@item.CodGenero">@item.TxtDesc</option>
+                        }
+                    }
+                </select>
+            </div>
+            @if (ViewBag.Mensaje != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @ViewBag.Mensaje
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+
+            <button type="submit" class="btn btn-primary">Asignar</button>
+            <a class="btn btn-default" asp-area="" asp-controller="GeneroPelicula" asp-action="Lista" asp-route-id="@Model.cod_pelicula">Volver</a>
+        </form>
+    </div>
+</div>
 
 

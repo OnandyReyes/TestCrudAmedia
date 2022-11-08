@@ -38,7 +38,8 @@ namespace TestCrudAmedia.Controllers
             GeneroPeliculaViewModels models = new GeneroPeliculaViewModels();
 
             models.cod_pelicula = id;
-            models.listGeneros = generoPeliculaRepository.GetAllByCodePelicula(id);
+            models.pelicula = peliculaRepository.GetById(id);
+            models.listGeneros = generoRepository.GetAll();
 
             return View(models);
         }

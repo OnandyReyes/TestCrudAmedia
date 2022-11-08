@@ -15,7 +15,7 @@ namespace TestCrudAmedia.Data.Repository
 
         public bool GeneroPeliculaCheck(int code_pelicula, int code_genero)
         {
-            var result = context.TPeliculas
+            var result = context.TGeneros
                                 .FromSqlInterpolated($"EXEC GeneroPeliculaCheck @cod_pelicula={code_pelicula}, @cod_genero={code_genero}")
                                 .AsEnumerable();
 
