@@ -12,14 +12,15 @@ namespace TestCrudAmedia.Controllers
 {
     public class LoginController : Controller
     {
+
         IUsersRepository usersRepository;
         IRolRepository rolRepository;
 
-        public LoginController()
+        public LoginController(TestCrudContext context)
         {
             //AQUI SE INIALIZA LA INTERFACE DE REPOSITORIO CON LA CLASE QUE UTILIZAREMOS PARA LAS OPERACIONES
-            usersRepository = new UsersRepository();
-            rolRepository = new RolRepository();
+            usersRepository = new UsersRepository(context);
+            rolRepository = new RolRepository(context);
         }
 
         public IActionResult Index()
@@ -66,8 +67,15 @@ namespace TestCrudAmedia.Controllers
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
-
-                return RedirectToAction("Index", "Home");
+                if (rol.CodRol == 1)
+                {
+                    return RedirectToAction("Lista", "Usuarios");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                
             }
 
             ViewBag.Mensaje = "Usuario o contraseña incorrecta.";

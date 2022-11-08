@@ -22,4 +22,12 @@ public partial class TUser
     public int? SnActivo { get; set; }
 
     public virtual TRol? CodRolNavigation { get; set; }
+
+    public virtual ICollection<TPeliculaAlquiladum> TPeliculaAlquiladumCodUsuarioClienteNavigations { get; } = new List<TPeliculaAlquiladum>();
+
+    public virtual ICollection<TPeliculaAlquiladum> TPeliculaAlquiladumCodUsuarioCreadorNavigations { get; } = new List<TPeliculaAlquiladum>();
+
+    public virtual ICollection<TPeliculaVendidum> TPeliculaVendidumCodUsuarioClienteNavigations { get; } = new List<TPeliculaVendidum>();
+
+    public virtual ICollection<TPeliculaVendidum> TPeliculaVendidumCodUsuarioCreadorNavigations { get; } = new List<TPeliculaVendidum>();
 }

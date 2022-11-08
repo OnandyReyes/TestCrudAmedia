@@ -19,6 +19,10 @@ public partial class TestCrudContext : DbContext
 
     public virtual DbSet<TPelicula> TPeliculas { get; set; }
 
+    public virtual DbSet<TPeliculaAlquiladum> TPeliculaAlquilada { get; set; }
+
+    public virtual DbSet<TPeliculaVendidum> TPeliculaVendida { get; set; }
+
     public virtual DbSet<TRol> TRols { get; set; }
 
     public virtual DbSet<TUser> TUsers { get; set; }
@@ -78,6 +82,70 @@ public partial class TestCrudContext : DbContext
                         j.HasKey("CodPelicula", "CodGenero").HasName("PK__tGeneroP__6285A595C96AA3E2");
                         j.ToTable("tGeneroPelicula");
                     });
+        });
+
+        modelBuilder.Entity<TPeliculaAlquiladum>(entity =>
+        {
+            entity.HasKey(e => e.CodPeliculaAlquilada);
+
+            entity.ToTable("tPeliculaAlquilada");
+
+            entity.Property(e => e.CodPeliculaAlquilada).HasColumnName("cod_pelicula_alquilada");
+            entity.Property(e => e.CodPelicula).HasColumnName("cod_pelicula");
+            entity.Property(e => e.CodUsuarioCliente).HasColumnName("cod_usuario_cliente");
+            entity.Property(e => e.CodUsuarioCreador).HasColumnName("cod_usuario_creador");
+            entity.Property(e => e.Devuelta).HasColumnName("devuelta");
+            entity.Property(e => e.FechaDevuelta)
+                .HasColumnType("datetime")
+                .HasColumnName("fecha_devuelta");
+            entity.Property(e => e.FechaTomada)
+                .HasColumnType("datetime")
+                .HasColumnName("fecha_tomada");
+            entity.Property(e => e.Precio)
+                .HasColumnType("decimal(18, 2)")
+                .HasColumnName("precio");
+
+            entity.HasOne(d => d.CodPeliculaNavigation).WithMany(p => p.TPeliculaAlquilada)
+                .HasForeignKey(d => d.CodPelicula)
+                .HasConstraintName("FK_tPeliculaAlquilada_tPelicula");
+
+            entity.HasOne(d => d.CodUsuarioClienteNavigation).WithMany(p => p.TPeliculaAlquiladumCodUsuarioClienteNavigations)
+                .HasForeignKey(d => d.CodUsuarioCliente)
+                .HasConstraintName("FK_tPeliculaAlquilada_tUsersCliente");
+
+            entity.HasOne(d => d.CodUsuarioCreadorNavigation).WithMany(p => p.TPeliculaAlquiladumCodUsuarioCreadorNavigations)
+                .HasForeignKey(d => d.CodUsuarioCreador)
+                .HasConstraintName("FK_tPeliculaAlquilada_tUsersCreador");
+        });
+
+        modelBuilder.Entity<TPeliculaVendidum>(entity =>
+        {
+            entity.HasKey(e => e.CodPeliculaVendida);
+
+            entity.ToTable("tPeliculaVendida");
+
+            entity.Property(e => e.CodPeliculaVendida).HasColumnName("cod_pelicula_vendida");
+            entity.Property(e => e.CodPelicula).HasColumnName("cod_pelicula");
+            entity.Property(e => e.CodUsuarioCliente).HasColumnName("cod_usuario_cliente");
+            entity.Property(e => e.CodUsuarioCreador).HasColumnName("cod_usuario_creador");
+            entity.Property(e => e.Fecha)
+                .HasColumnType("datetime")
+                .HasColumnName("fecha");
+            entity.Property(e => e.Precio)
+                .HasColumnType("decimal(18, 2)")
+                .HasColumnName("precio");
+
+            entity.HasOne(d => d.CodPeliculaNavigation).WithMany(p => p.TPeliculaVendida)
+                .HasForeignKey(d => d.CodPelicula)
+                .HasConstraintName("FK_tPeliculaVendida_tPelicula");
+
+            entity.HasOne(d => d.CodUsuarioClienteNavigation).WithMany(p => p.TPeliculaVendidumCodUsuarioClienteNavigations)
+                .HasForeignKey(d => d.CodUsuarioCliente)
+                .HasConstraintName("FK_tPeliculaVendida_tUsersCliente");
+
+            entity.HasOne(d => d.CodUsuarioCreadorNavigation).WithMany(p => p.TPeliculaVendidumCodUsuarioCreadorNavigations)
+                .HasForeignKey(d => d.CodUsuarioCreador)
+                .HasConstraintName("FK_tPeliculaVendida_tUsersCreador");
         });
 
         modelBuilder.Entity<TRol>(entity =>

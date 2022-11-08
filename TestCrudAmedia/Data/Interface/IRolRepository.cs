@@ -8,6 +8,8 @@ namespace TestCrudAmedia.Data.Interface
 
         TRol GetById(int id);
 
+        IEnumerable<TRol> GetAll();
+
         #endregion
 
         #region Métodos Asíncronos

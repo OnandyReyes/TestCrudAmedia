@@ -17,5 +17,9 @@ public partial class TPelicula
 
     public decimal? PrecioVenta { get; set; }
 
+    public virtual ICollection<TPeliculaAlquiladum> TPeliculaAlquilada { get; } = new List<TPeliculaAlquiladum>();
+
+    public virtual ICollection<TPeliculaVendidum> TPeliculaVendida { get; } = new List<TPeliculaVendidum>();
+
     public virtual ICollection<TGenero> CodGeneros { get; } = new List<TGenero>();
 }
