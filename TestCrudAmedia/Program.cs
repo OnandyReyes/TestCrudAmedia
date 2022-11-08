@@ -1,7 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using TestCrudAmedia.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<TestCrudContext>(opciones =>
+                opciones.UseSqlServer("name=DefaultConnection"));
 
 var app = builder.Build();
 
