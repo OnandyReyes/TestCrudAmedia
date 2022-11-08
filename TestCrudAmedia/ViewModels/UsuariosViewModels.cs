@@ -10,6 +10,16 @@ namespace TestCrudAmedia.ViewModels
 
         }
 
+        public string user { get; set; }
+        public string password { get; set; }
+        public string nombre { get; set; }
+        public string apellido { get; set; }
+        public string nro_doc { get; set; }
+
+        public int cod_rol { get; set; }
+           
+        public TUser tuser { get; set; }
+
         public IEnumerable<TUser> listUsers { get; set; }
 
         public IEnumerable<TRol> listRoles { get; set; }

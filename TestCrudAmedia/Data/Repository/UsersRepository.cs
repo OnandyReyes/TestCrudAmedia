@@ -53,6 +53,14 @@ namespace TestCrudAmedia.Data.Repository
             return tuser;
         }
 
+        public TUser GetById(int id)
+        {
+            
+            TUser tuser = context.TUsers.FirstOrDefault(x => x.CodUsuario == id);
+
+            return tuser;
+        }
+
         public IEnumerable<TUser> GetAll()
         {
             var userResult = context.TUsers
@@ -82,6 +90,8 @@ namespace TestCrudAmedia.Data.Repository
         }
 
         
+
+
         #endregion
     }
 }

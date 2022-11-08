@@ -9,6 +9,8 @@ namespace TestCrudAmedia.Data.Interface
 
         TUser Validate(string user, string password);
 
+        TUser GetById(int id);
+
         IEnumerable<TUser> GetAll();
 
         #endregion
