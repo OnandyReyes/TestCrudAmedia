@@ -30,6 +30,8 @@ namespace TestCrudAmedia.Data.Repository
             return id;
         }
 
+        
+
         public IEnumerable<TGenero> GetAll()
         {
             var result = context.TGeneros
@@ -38,5 +40,7 @@ namespace TestCrudAmedia.Data.Repository
 
             return result;
         }
+
+        
     }
 }

@@ -37,7 +37,8 @@
                     <td>@item.PrecioAlquiler</td>
                     <td>@item.PrecioVenta</td>
                     <td>
-                        <a class="btn btn-warning" asp-area="" asp-controller="Pelicula" asp-action="Editar" asp-route-id="@item.CodPelicula">Editar</a> |
+                        <a class="btn btn-primary" asp-area="" asp-controller="GeneroPelicula" asp-action="Lista" asp-route-id="@item.CodPelicula">Generos</a>
+                        <a class="btn btn-warning" asp-area="" asp-controller="Pelicula" asp-action="Editar" asp-route-id="@item.CodPelicula">Editar</a> 
                         <a class="btn btn-danger" asp-area="" asp-controller="Pelicula" asp-action="Eliminar" asp-route-id="@item.CodPelicula">Eliminar</a>
                     </td>
                 </tr>

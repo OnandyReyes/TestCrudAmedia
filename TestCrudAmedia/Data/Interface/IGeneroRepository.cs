@@ -7,6 +7,7 @@ namespace TestCrudAmedia.Data.Interface
         #region Métodos Síncronos
         int Insert(TGenero genero);
 
+
         IEnumerable<TGenero> GetAll();
 
         #endregion
