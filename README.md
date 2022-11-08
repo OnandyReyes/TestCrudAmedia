@@ -20,8 +20,8 @@ SqlServer 2019
 
 ## Despliegue 📦
 
-_Descargue el Proyecto_
+- Descargue el Proyecto.
 
-_Puede Generar el Script esta ubicado en el directorio principal del proyecto_
+- Puede Generar el Script esta ubicado en el directorio principal del proyecto.
 
-_Reemplace el servidor y el nombre de la BD luego de la cadena de conexion en el archivo appsettings.json que se encuentra en el directorio principal. _
+- Reemplace el servidor y el nombre de la BD luego de la cadena de conexion en el archivo appsettings.json que se encuentra en el directorio principal.
