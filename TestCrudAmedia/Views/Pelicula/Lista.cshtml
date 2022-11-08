@@ -1,0 +1,47 @@
+﻿@model TestCrudAmedia.ViewModels.PeliculaViewModels
+@{
+    ViewData["Title"] = "Lista";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["Mensaje"]
+    </div>
+}
+<a class="btn btn-primary" asp-area="" asp-controller="Pelicula" asp-action="Nuevo">Nueva Pelicula</a>
+
+<table class="table table-striped table-hover tablasLista">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Descipción</th>
+            <th>Alquiler Disp.</th>
+            <th>Venta Disp.</th>
+            <th>Alquiler Precio</th>
+            <th>Venta Precio</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var item in Model.listPeliculas)
+            {
+
+                <tr>
+                    <td>@item.CodPelicula</td>
+                    <td>@item.TxtDesc</td>
+                    <td>@item.CantDisponiblesAlquiler</td>
+                    <td>@item.CantDisponiblesVenta</td>
+                    <td>@item.PrecioAlquiler</td>
+                    <td>@item.PrecioVenta</td>
+                    <td>
+                        <a class="btn btn-warning" asp-area="" asp-controller="Pelicula" asp-action="Editar">Editar</a> |
+                        <a class="btn btn-danger" asp-area="" asp-controller="Pelicula" asp-action="Eliminar">Eliminar</a>
+                    </td>
+                </tr>
+
+            }
+        }
+    </tbody>
+</table>
