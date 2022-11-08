@@ -15,6 +15,7 @@ namespace TestCrudAmedia.Controllers
 
         public LoginController()
         {
+            //AQUI SE INIALIZA LA INTERFACE DE REPOSITORIO CON LA CLASE QUE UTILIZAREMOS PARA LAS OPERACIONES
             usersRepository = new UsersRepository();
         }
 
@@ -28,26 +29,37 @@ namespace TestCrudAmedia.Controllers
         {
             var user = usersRepository.Validate(models.user, models.password);
 
-            if (user != null)
+            if (user != null && user.CodUsuario > 0)
             {
+                //AQUI SE REALIZAN LAS VALIDACIONES PARA SABER SI EL USUARIO ESTA ACTIVO O TIENE ROL ASINADO
+                if (user.SnActivo < 1)
+                {
+                    ViewBag.Mensaje = "El usuario no se encuentra activo.";
+                    return View();
+                }
+
+                if (user.CodRolNavigation != null)
+                {
+                    ViewBag.Mensaje = "El usuario no cuenta con roles asignados.";
+                    return View();
+                }
+
+                //AQUI SE AGREGAN LAS COOKIE PARA GUARDAR LA SESION
                 var claims = new List<Claim> {
                     new Claim(ClaimTypes.Name, $"{user.TxtNombre} {user.TxtPassword}" )
                 };
 
-                String Rol = "Visitante";
-
-                if (user.CodRolNavigation != null)
-                    Rol = user.CodRolNavigation.TxtDesc;
-
-                claims.Add(new Claim(ClaimTypes.Role, Rol));
+                claims.Add(new Claim(ClaimTypes.Role, user.CodRolNavigation.TxtDesc));
 
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
+
                 return RedirectToAction("Index", "Home");
             }
 
+            ViewBag.Mensaje = "Usuario o contraseña incorrecta.";
             return View();
         }
 

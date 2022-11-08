@@ -24,6 +24,13 @@
                     <label for="InputPassword" class="form-label">Contraseña</label>
                     <input type="password" class="form-control" asp-for="password">
                 </div>
+                @if(ViewBag.Mensaje != null){
+                    <div class="alert alert-danger" role="alert">
+                        @ViewBag.Mensaje
+                    </div>
+                }
+                
+                
                 <button type="submit" class="btn btn-primary">Ingresar</button>
             </form>
         </div>
