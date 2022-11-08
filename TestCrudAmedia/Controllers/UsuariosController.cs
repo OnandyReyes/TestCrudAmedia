@@ -8,6 +8,7 @@ using TestCrudAmedia.ViewModels;
 
 namespace TestCrudAmedia.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     public class UsuariosController : Controller
     {
         IUsersRepository usersRepository;
@@ -20,7 +21,7 @@ namespace TestCrudAmedia.Controllers
             rolRepository = new RolRepository(context);
         }
 
-        [Authorize(Roles = "Administrador")]
+        
         public async Task<IActionResult> Lista()
         {
             UsuariosViewModels models = new UsuariosViewModels();
@@ -30,5 +31,16 @@ namespace TestCrudAmedia.Controllers
 
             return View(models);
         }
+
+        public async Task<IActionResult> Nuevo()
+        {
+            UsuariosViewModels models = new UsuariosViewModels();
+
+            models.listRoles = rolRepository.GetAll();
+
+            return View(models);
+        }
+
+
     }
 }

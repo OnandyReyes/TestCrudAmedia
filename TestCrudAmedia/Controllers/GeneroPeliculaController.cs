@@ -47,6 +47,8 @@ namespace TestCrudAmedia.Controllers
         [HttpPost]
         public async Task<IActionResult> Nuevo(GeneroPeliculaViewModels models)
         {
+            models.pelicula = peliculaRepository.GetById(models.cod_pelicula);
+            models.listGeneros = generoRepository.GetAll();
 
             bool checkGeneroPelicula = generoPeliculaRepository.GeneroPeliculaCheck(models.cod_pelicula, models.cod_genero);
 
@@ -64,6 +66,7 @@ namespace TestCrudAmedia.Controllers
                 return RedirectToAction("Lista", "GeneroPelicula", new { id = models.cod_pelicula });
             }
 
+            
             ViewBag.Mensaje = "Genero no se pudo asignar, Revise e Intente de nuevo.";
             return View(models);
         }
