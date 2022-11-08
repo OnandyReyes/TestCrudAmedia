@@ -17,6 +17,8 @@ public partial class TPeliculaVendidum
 
     public DateTime? Fecha { get; set; }
 
+    public int? Cantidad { get; set; }
+
     public virtual TPelicula? CodPeliculaNavigation { get; set; }
 
     public virtual TUser? CodUsuarioClienteNavigation { get; set; }

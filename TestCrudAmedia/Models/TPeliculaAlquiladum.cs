@@ -21,6 +21,8 @@ public partial class TPeliculaAlquiladum
 
     public int? Devuelta { get; set; }
 
+    public int? Cantidad { get; set; }
+
     public virtual TPelicula? CodPeliculaNavigation { get; set; }
 
     public virtual TUser? CodUsuarioClienteNavigation { get; set; }

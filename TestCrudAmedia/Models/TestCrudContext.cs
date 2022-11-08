@@ -91,6 +91,8 @@ public partial class TestCrudContext : DbContext
             entity.Property(e => e.CodUsuarioCliente).HasColumnName("cod_usuario_cliente");
             entity.Property(e => e.CodUsuarioCreador).HasColumnName("cod_usuario_creador");
             entity.Property(e => e.Devuelta).HasColumnName("devuelta");
+            entity.Property(e => e.Cantidad).HasColumnName("cantidad");
+
             entity.Property(e => e.FechaDevuelta)
                 .HasColumnType("datetime")
                 .HasColumnName("fecha_devuelta");
@@ -124,6 +126,7 @@ public partial class TestCrudContext : DbContext
             entity.Property(e => e.CodPelicula).HasColumnName("cod_pelicula");
             entity.Property(e => e.CodUsuarioCliente).HasColumnName("cod_usuario_cliente");
             entity.Property(e => e.CodUsuarioCreador).HasColumnName("cod_usuario_creador");
+            entity.Property(e => e.Cantidad).HasColumnName("cantidad");
             entity.Property(e => e.Fecha)
                 .HasColumnType("datetime")
                 .HasColumnName("fecha");
