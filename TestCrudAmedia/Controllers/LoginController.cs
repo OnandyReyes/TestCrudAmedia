@@ -6,17 +6,20 @@ using TestCrudAmedia.ViewModels;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
+using TestCrudAmedia.Models;
 
 namespace TestCrudAmedia.Controllers
 {
     public class LoginController : Controller
     {
         IUsersRepository usersRepository;
+        IRolRepository rolRepository;
 
         public LoginController()
         {
             //AQUI SE INIALIZA LA INTERFACE DE REPOSITORIO CON LA CLASE QUE UTILIZAREMOS PARA LAS OPERACIONES
             usersRepository = new UsersRepository();
+            rolRepository = new RolRepository();
         }
 
         public IActionResult Index()
@@ -38,7 +41,15 @@ namespace TestCrudAmedia.Controllers
                     return View();
                 }
 
-                if (user.CodRolNavigation != null)
+                if (user.CodRol == null || user.CodRol <= 0)
+                {
+                    ViewBag.Mensaje = "El usuario no cuenta con roles asignados.";
+                    return View();
+                }
+
+                var rol = rolRepository.GetById(user.CodRol.Value);
+
+                if (rol == null || rol.CodRol <= 0)
                 {
                     ViewBag.Mensaje = "El usuario no cuenta con roles asignados.";
                     return View();
@@ -49,7 +60,7 @@ namespace TestCrudAmedia.Controllers
                     new Claim(ClaimTypes.Name, $"{user.TxtNombre} {user.TxtPassword}" )
                 };
 
-                claims.Add(new Claim(ClaimTypes.Role, user.CodRolNavigation.TxtDesc));
+                claims.Add(new Claim(ClaimTypes.Role, rol.TxtDesc));
 
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
