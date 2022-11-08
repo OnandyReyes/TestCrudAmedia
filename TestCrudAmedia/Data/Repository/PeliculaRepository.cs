@@ -55,7 +55,7 @@ namespace TestCrudAmedia.Data.Repository
         public bool Delete(int id)
         {
             var result = context.Database
-                .ExecuteSqlInterpolated($@"EXEC GeneroInsert
+                .ExecuteSqlInterpolated($@"EXEC PeliculaDelete
                                         @cod_pelicula={id}");
 
             bool status = false;
@@ -72,7 +72,7 @@ namespace TestCrudAmedia.Data.Repository
             TPelicula pelicula = new TPelicula();
 
             var result = context.TPeliculas
-                                 .FromSqlInterpolated($"EXEC PeliculaGetByID @@cod_pelicula={id}")
+                                 .FromSqlInterpolated($"EXEC PeliculaGetByID @cod_pelicula={id}")
                                  .AsEnumerable();
 
             if (result.Count() > 0)

@@ -1,0 +1,53 @@
+﻿@model TestCrudAmedia.ViewModels.PeliculaViewModels
+@{
+    ViewData["Title"] = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row mt-5">
+    <div class="col-sm-4 offset-sm-4">
+        <form asp-controller="pelicula" asp-action="Editar" method="post">
+            <input type="hidden" asp-for="cod_pelicula" value="@Model.cod_pelicula">
+            <legend>Datos Nueva Pelicula</legend>
+            <div class="mb-3">
+                <label for="InputDesc" class="form-label">Descripción</label>
+                <input type="text" maxlength="500" class="form-control" asp-for="descripcion" value="@Model.pelicula.TxtDesc">
+            </div>
+
+            <div class="mb-3">
+                <label for="InputCantDispAlquiler" class="form-label">Cantidad Disponible para Alquiler</label>
+                <input type="number" min="0" class="form-control" asp-for="cantidad_disponible_alquiler" value="@Model.pelicula.CantDisponiblesAlquiler">
+            </div>
+
+
+            <div class="mb-3">
+                <label for="InputCantDispVenta" class="form-label">Cantidad Disponible para Venta</label>
+                <input type="number" min="0" class="form-control" asp-for="cantidad_disponible_venta" value="@Model.pelicula.CantDisponiblesVenta">
+            </div>
+
+            <div class="mb-3">
+                <label for="InputPrecioAlquiler" class="form-label">Precio Alquiler</label>
+                <input type="number" min="0" step=".01" class="form-control" asp-for="precio_alquiler" value="@Model.pelicula.PrecioAlquiler">
+            </div>
+
+            <div class="mb-3">
+                <label for="InputPrecioVenta" class="form-label">Precio Venta</label>
+                <input type="number" min="0" step=".01" class="form-control" asp-for="precio_venta" value="@Model.pelicula.PrecioVenta">
+            </div>
+
+            @if (ViewBag.Mensaje != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @ViewBag.Mensaje
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+
+            <button type="submit" class="btn btn-primary">Actualizar</button>
+            <a class="btn btn-default" asp-area="" asp-controller="Pelicula" asp-action="Lista">Volver</a>
+        </form>
+    </div>
+</div>
+
+

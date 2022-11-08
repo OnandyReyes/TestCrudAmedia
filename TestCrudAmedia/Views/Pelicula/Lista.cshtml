@@ -5,8 +5,9 @@
 }
 @if (TempData["Mensaje"] != null)
 {
-    <div class="alert alert-success" role="alert">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
         @TempData["Mensaje"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
 <a class="btn btn-primary" asp-area="" asp-controller="Pelicula" asp-action="Nuevo">Nueva Pelicula</a>
@@ -36,8 +37,8 @@
                     <td>@item.PrecioAlquiler</td>
                     <td>@item.PrecioVenta</td>
                     <td>
-                        <a class="btn btn-warning" asp-area="" asp-controller="Pelicula" asp-action="Editar">Editar</a> |
-                        <a class="btn btn-danger" asp-area="" asp-controller="Pelicula" asp-action="Eliminar">Eliminar</a>
+                        <a class="btn btn-warning" asp-area="" asp-controller="Pelicula" asp-action="Editar" asp-route-id="@item.CodPelicula">Editar</a> |
+                        <a class="btn btn-danger" asp-area="" asp-controller="Pelicula" asp-action="Eliminar" asp-route-id="@item.CodPelicula">Eliminar</a>
                     </td>
                 </tr>
 
