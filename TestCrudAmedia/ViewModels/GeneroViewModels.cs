@@ -9,6 +9,8 @@ namespace TestCrudAmedia.ViewModels
 
         }
 
+        public string descripcion { get; set; }
+
         public IEnumerable<TGenero> listGeneros { get; set; }
     }
 }

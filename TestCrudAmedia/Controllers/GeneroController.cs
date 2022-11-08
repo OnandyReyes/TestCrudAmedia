@@ -27,5 +27,30 @@ namespace TestCrudAmedia.Controllers
 
             return View(models);
         }
+
+        [Authorize(Roles = "Administrador")]
+        public IActionResult Nuevo()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Nuevo(GeneroViewModels models)
+        {
+
+            TGenero genero = new TGenero();
+            genero.TxtDesc = models.descripcion;
+
+            int id = generoRepository.Insert(genero);
+
+            if (id > 0)
+            {
+                TempData["Mensaje"] = "El Genero fue Creado Correctamente!";
+                return RedirectToAction("Lista", "Genero");
+            }
+
+            ViewBag.Mensaje = "Genero no se pudo agregar.";
+            return View(models);
+        }
     }
 }
