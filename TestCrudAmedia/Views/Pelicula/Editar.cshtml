@@ -7,7 +7,7 @@
 <div class="row mt-5">
     <div class="col-sm-4 offset-sm-4">
         <form asp-controller="pelicula" asp-action="Editar" method="post">
-            <input type="hidden" asp-for="cod_pelicula" value="@Model.cod_pelicula">
+            <input type="hidden" asp-for="cod_pelicula" value="@Model.pelicula.CodPelicula">
             <legend>Datos Editar Pelicula</legend>
             <div class="mb-3">
                 <label for="InputDesc" class="form-label">Descripción</label>

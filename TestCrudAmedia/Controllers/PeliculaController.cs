@@ -68,9 +68,17 @@ namespace TestCrudAmedia.Controllers
         [HttpPost]
         public async Task<IActionResult> Editar(PeliculaViewModels models)
         {
-            bool status = peliculaRepository.Update(models.pelicula);
+            TPelicula pelicula = new TPelicula();
+            pelicula.CodPelicula = models.cod_pelicula;
+            pelicula.TxtDesc = models.descripcion;
+            pelicula.CantDisponiblesAlquiler = models.cantidad_disponible_alquiler;
+            pelicula.CantDisponiblesVenta = models.cantidad_disponible_venta;
+            pelicula.PrecioAlquiler = models.precio_alquiler;
+            pelicula.PrecioVenta = models.precio_venta;
 
-            if (status)
+            models.pelicula = pelicula;
+
+            if (peliculaRepository.Update(models.pelicula))
             {
                 TempData["Mensaje"] = "La Pelicula fue Actualizada Correctamente!";
                 return RedirectToAction("Lista", "Pelicula");
