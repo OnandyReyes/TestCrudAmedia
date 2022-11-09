@@ -8,7 +8,7 @@
     <div class="col-sm-4 offset-sm-4">
         <form asp-controller="pelicula" asp-action="Editar" method="post">
             <input type="hidden" asp-for="cod_pelicula" value="@Model.cod_pelicula">
-            <legend>Datos Nueva Pelicula</legend>
+            <legend>Datos Editar Pelicula</legend>
             <div class="mb-3">
                 <label for="InputDesc" class="form-label">Descripción</label>
                 <input type="text" maxlength="500" class="form-control" asp-for="descripcion" value="@Model.pelicula.TxtDesc">

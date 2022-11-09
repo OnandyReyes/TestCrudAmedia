@@ -44,6 +44,8 @@ namespace TestCrudAmedia.Controllers
         [HttpPost]
         public async Task<IActionResult> Nuevo(UsuariosViewModels models)
         {
+            models.listRoles = rolRepository.GetAll();
+
             TUser user = new TUser();
             user.TxtUser = models.user;
             user.TxtPassword = models.password;
@@ -52,6 +54,12 @@ namespace TestCrudAmedia.Controllers
             user.NroDoc = models.nro_doc;
             user.CodRol = models.cod_rol;
             user.SnActivo = 1;
+
+            if (usersRepository.ValidateNroDoc(user.NroDoc))
+            {
+                ViewBag.Mensaje = "Usuario no se pudo crear, Este numero de documento ya esta registrado.";
+                return View(models);
+            }
 
             int id = usersRepository.Insert(user);
 
@@ -70,7 +78,72 @@ namespace TestCrudAmedia.Controllers
             UsuariosViewModels models = new UsuariosViewModels();
 
             models.tuser = usersRepository.GetById(id);
+            models.listRoles = rolRepository.GetAll();
 
+            return View(models);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Editar(UsuariosViewModels models)
+        {
+
+            models.listRoles = rolRepository.GetAll();
+
+            TUser userOld = usersRepository.GetById(models.cod_usuario);
+
+            TUser user = new TUser();
+            user.CodUsuario = models.cod_usuario;
+            user.TxtUser = models.user;
+            user.TxtPassword = models.password;
+            user.TxtNombre = models.nombre;
+            user.TxtApellido = models.apellido;
+            user.NroDoc = models.nro_doc;
+            user.CodRol = models.cod_rol;
+            user.SnActivo = userOld.SnActivo;
+            if (user.TxtPassword == null)
+            {
+                user.TxtPassword = userOld.TxtPassword;
+            }
+
+            models.tuser = user;
+
+            if (usersRepository.ValidateNroDocUpdate(user.NroDoc, user.CodUsuario))
+            {
+                ViewBag.Mensaje = "Usuario no se pudo actualizar, Este numero de documento ya esta registrado.";
+                return View(models);
+            }
+
+            if (usersRepository.Update(user))
+            {
+                TempData["Mensaje"] = "El Usuario fue Actualizado Correctamente!";
+                return RedirectToAction("Lista", "Usuarios");
+            }
+            
+            ViewBag.Mensaje = "Usuario no se pudo actualizar, verifique e intente de nuevo.";
+            return View(models);
+        }
+
+        public IActionResult Eliminar(int id)
+        {
+            UsuariosViewModels models = new UsuariosViewModels();
+
+            models.cod_usuario = id;
+
+            return View(models);
+        }
+
+        [HttpPost]
+        public IActionResult Eliminar(UsuariosViewModels models)
+        {
+            bool status = usersRepository.Delete(models.cod_usuario);
+
+            if (status)
+            {
+                TempData["Mensaje"] = "El Usuario fue Eliminado Correctamente!";
+                return RedirectToAction("Lista", "Usuarios");
+            }
+
+            ViewBag.Mensaje = "Este Usuario no se puede eliminar.";
             return View(models);
         }
     }

@@ -1,0 +1,29 @@
+﻿@model TestCrudAmedia.ViewModels.UsuariosViewModels
+@{
+    ViewData["Title"] = "Eliminar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row mt-5">
+    <div class="col-sm-4 offset-sm-4">
+        <form asp-controller="usuarios" asp-action="Eliminar" method="post">
+            <input type="hidden" asp-for="cod_usuario" value="@Model.cod_usuario">
+
+            <legend>Seguro que Desea Borrar el Usuario?</legend>
+
+
+            @if (ViewBag.Mensaje != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @ViewBag.Mensaje
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+
+            <button type="submit" class="btn btn-danger">Si! Eliminar</button>
+            <a class="btn btn-default" asp-area="" asp-controller="Pelicula" asp-action="Lista">Volver</a>
+        </form>
+    </div>
+</div>
+

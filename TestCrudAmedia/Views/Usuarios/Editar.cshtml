@@ -1,0 +1,72 @@
+﻿@model TestCrudAmedia.ViewModels.UsuariosViewModels
+@{
+    ViewData["Title"] = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row mt-5">
+    <div class="col-sm-4 offset-sm-4">
+        <form asp-controller="usuarios" asp-action="Editar" method="post">
+            <input type="hidden" asp-for="cod_usuario" value="@Model.tuser.CodUsuario">
+            <legend>Datos Editar Usuario</legend>
+            <div class="mb-3">
+                <label for="InputUser" class="form-label">Usuario</label>
+                <input type="text" maxlength="50" class="form-control" asp-for="user" value="@Model.tuser.TxtUser">
+            </div>
+
+            <div class="mb-3">
+                <label for="InputPassword" class="form-label">Clave</label>
+                <input type="password" maxlength="50" class="form-control" asp-for="password">
+            </div>
+
+            <div class="mb-3">
+                <label for="InputNombre" class="form-label">Nombre</label>
+                <input type="text" maxlength="200" class="form-control" asp-for="nombre" value="@Model.tuser.TxtNombre">
+            </div>
+
+            <div class="mb-3">
+                <label for="InputApellido" class="form-label">Apellido</label>
+                <input type="text" maxlength="200" class="form-control" asp-for="apellido" value="@Model.tuser.TxtApellido">
+            </div>
+
+            <div class="mb-3">
+                <label for="InputNoDoc" class="form-label">Nro. Documento</label>
+                <input type="text" maxlength="50" class="form-control" asp-for="nro_doc" value="@Model.tuser.NroDoc">
+            </div>
+
+            <div class="mb-3">
+                <label for="InputGenero" class="form-label">Seleccionar Genero</label>
+                <select class="form-control" asp-for="cod_rol">
+                    @{
+                        foreach (var item in Model.listRoles)
+                        {
+                            if(item.CodRol == Model.tuser.CodRol){
+                               
+                                <option value="@item.CodRol" selected>@item.TxtDesc</option>
+
+                            }else{
+
+                                <option value="@item.CodRol">@item.TxtDesc</option>
+
+                            }
+                            
+                        }
+                    }
+                </select>
+            </div>
+
+            @if (ViewBag.Mensaje != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @ViewBag.Mensaje
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+
+            <button type="submit" class="btn btn-primary">Actualizar</button>
+            <a class="btn btn-default" asp-area="" asp-controller="Usuarios" asp-action="Lista">Volver</a>
+        </form>
+    </div>
+</div>
+
